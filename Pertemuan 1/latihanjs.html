@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Latihan JavaScript - Data Sekolah</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+    h1 { color: #333; text-align: center; margin-bottom: 20px; }
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .button-container button {
+      flex: 1 1 calc(25% - 10px); /* 4 tombol per baris */
+      min-width: 160px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #4CAF50;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .button-container button:hover {
+      background: #388E3C;
+      transform: scale(1.05);
+    }
+    hr { margin: 20px 0; }
+    #hasil { margin-top: 20px; }
+    table { border-collapse: collapse; width: 80%; margin: 15px auto; }
+    th, td { border: 1px solid #444; padding: 8px; text-align: center; }
+    th { background-color: #4CAF50; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h1>Latihan JavaScript Internal - Pertemuan 2 (Data Sekolah)</h1>
+
+  <!-- Tombol Interaktif -->
+  <div class="button-container">
+    <button onclick="tampilIdentitas()">Lihat Identitas Sekolah</button>
+    <button onclick="tampilDialog()">Isi Nama Siswa</button>
+    <button onclick="cekNilai()">Cek Nilai Ujian</button>
+    <button onclick="tampilKelas()">Daftar Kelas</button>
+    <button onclick="tampilEkskul()">Daftar Ekstrakurikuler</button>
+    <button onclick="tampilTabelSiswa()">Daftar Siswa</button>
+    <button onclick="tambahSiswa()">Tambah Siswa</button>
+    <button onclick="hapusSiswa()">Hapus Siswa</button>
+    <button onclick="editSiswa()">Edit Siswa</button>
+    <button onclick="cariSiswa()">Cari Siswa</button>
+  </div>
+
+  <hr>
+  <div id="hasil"></div>
+
+  <!-- JavaScript Internal -->
+  <script>
+    var sekolah = "SMK Negeri 1 Banyuwangi";
+    let jurusan = "Rekayasa Perangkat Lunak";
+    const tahunBerdiri = 1995;
+
+    let siswaList = [
+      { nama: "Rangga", nilai: 92 },
+      { nama: "Firdaus", nilai: 78 },
+      { nama: "Wahyu", nilai: 65 },
+      { nama: "Scendy", nilai: 88 },
+      { nama: "Jakcy", nilai: 55 }
+    ];
+
+    function tampilIdentitas() {
+      document.getElementById("hasil").innerHTML = `
+        <h3>Identitas Sekolah</h3>
+        <p>Nama Sekolah: ${sekolah}</p>
+        <p>Jurusan Unggulan: ${jurusan}</p>
+        <p>Tahun Berdiri: ${tahunBerdiri}</p>
+      `;
+    }
+
+    function tampilDialog() {
+      let siswa = prompt("Masukkan nama siswa:");
+      let konfirmasi = confirm("Apakah nama siswa benar " + siswa + "?");
+      if (konfirmasi) {
+        alert("Halo, " + siswa + "! Selamat belajar di " + sekolah);
+      } else {
+        alert("Silakan isi ulang nama siswa.");
+      }
+    }
+
+    function cekNilai() {
+      let nilaiUjian = parseInt(prompt("Masukkan nilai ujian siswa:"));
+      let status = (nilaiUjian >= 75) ? "Lulus" : "Tidak Lulus";
+      let hasil = `<h3>Hasil Ujian</h3>
+                   <p>Nilai: ${nilaiUjian}</p>
+                   <p>Status: ${status}</p>`;
+      if (nilaiUjian >= 90) {
+        hasil += "<p>Kategori: Sangat Baik (A)</p>";
+      } else if (nilaiUjian >= 75) {
+        hasil += "<p>Kategori: Cukup Baik (B)</p>";
+      } else {
+        hasil += "<p>Kategori: Remedial</p>";
+      }
+      document.getElementById("hasil").innerHTML = hasil;
+    }
+
+    function tampilKelas() {
+      let teks = `<h3>Daftar Kelas di ${sekolah}</h3>`;
+      for (let i = 10; i <= 12; i++) {
+        teks += `Kelas ${i} ${jurusan}<br>`;
+      }
+      document.getElementById("hasil").innerHTML = teks;
+    }
+
+    function tampilEkskul() {
+      let ekskul = ["Pramuka", "PMR", "Futsal", "Paskibra"];
+      let teks = "<h3>Daftar Ekstrakurikuler</h3>";
+      ekskul.forEach((item, i) => { teks += (i+1) + ". " + item + "<br>"; });
+      document.getElementById("hasil").innerHTML = teks;
+    }
+
+    function tampilTabelSiswa() {
+      let teks = `
+        <h3>Daftar Siswa & Nilai</h3>
+        <table>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Nilai</th>
+            <th>Status</th>
+          </tr>
+      `;
+      siswaList.forEach((s, i) => {
+        let status = (s.nilai >= 75) ? "Lulus" : "Tidak Lulus";
+        teks += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${s.nama}</td>
+            <td>${s.nilai}</td>
+            <td>${status}</td>
+          </tr>
+        `;
+      });
+      teks += "</table>";
+      document.getElementById("hasil").innerHTML = teks;
+    }
+
+    function tambahSiswa() {
+      let namaBaru = prompt("Masukkan nama siswa baru:");
+      let nilaiBaru = parseInt(prompt("Masukkan nilai siswa baru:"));
+      if (namaBaru && !isNaN(nilaiBaru)) {
+        siswaList.push({ nama: namaBaru, nilai: nilaiBaru });
+        alert("Siswa berhasil ditambahkan!");
+        tampilTabelSiswa();
+      } else {
+        alert("Input tidak valid.");
+      }
+    }
+
+    function hapusSiswa() {
+      let namaHapus = prompt("Masukkan nama siswa yang ingin dihapus:");
+      let index = siswaList.findIndex(s => s.nama.toLowerCase() === namaHapus.toLowerCase());
+      if (index !== -1) {
+        siswaList.splice(index, 1);
+        alert("Siswa " + namaHapus + " berhasil dihapus.");
+        tampilTabelSiswa();
+      } else {
+        alert("Siswa tidak ditemukan.");
+      }
+    }
+
+    function editSiswa() {
+      let namaEdit = prompt("Masukkan nama siswa yang ingin diedit:");
+      let index = siswaList.findIndex(s => s.nama.toLowerCase() === namaEdit.toLowerCase());
+      if (index !== -1) {
+        let siswa = siswaList[index];
+        let namaBaru = prompt("Ubah nama siswa:", siswa.nama);
+        let nilaiBaru = prompt("Ubah nilai siswa:", siswa.nilai);
+        if (namaBaru) siswa.nama = namaBaru;
+        if (nilaiBaru && !isNaN(parseInt(nilaiBaru))) siswa.nilai = parseInt(nilaiBaru);
+        alert("Data siswa berhasil diperbarui!");
+        tampilTabelSiswa();
+      } else {
+        alert("Siswa tidak ditemukan.");
+      }
+    }
+
+    function cariSiswa() {
+      let namaCari = prompt("Masukkan nama siswa yang ingin dicari:");
+      if (!namaCari) {
+        alert("Nama tidak boleh kosong.");
+        return;
+      }
+      let hasilCari = siswaList.filter(s => s.nama.toLowerCase().includes(namaCari.toLowerCase()));
+      if (hasilCari.length > 0) {
+        let teks = `
+          <h3>Hasil Pencarian: "${namaCari}"</h3>
+          <table>
+            <tr>
+              <th>No</th>
+              <th>Nama</th>
+              <th>Nilai</th>
+              <th>Status</th>
+            </tr>
+        `;
+        hasilCari.forEach((s, i) => {
+          let status = (s.nilai >= 75) ? "Lulus" : "Tidak Lulus";
+          teks += `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${s.nama}</td>
+              <td>${s.nilai}</td>
+              <td>${status}</td>
+            </tr>
+          `;
+        });
+        teks += "</table>";
+        document.getElementById("hasil").innerHTML = teks;
+      } else {
+        alert("Siswa tidak ditemukan.");
+      }
+    }
+  </script>
+</body>
+</html>

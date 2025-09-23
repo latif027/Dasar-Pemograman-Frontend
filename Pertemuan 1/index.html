@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Latihan JavaScript - Data Sekolah</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f9f9f9; }
+    h1 { color: #333; text-align: center; margin-bottom: 20px; }
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .button-container button {
+      flex: 1 1 calc(25% - 10px); /* 4 tombol per baris */
+      min-width: 150px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #4CAF50;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .button-container button:hover {
+      background: #388E3C;
+      transform: scale(1.05);
+    }
+    table { border-collapse: collapse; width: 70%; margin-top: 15px; }
+    th, td { border: 1px solid #444; padding: 8px; text-align: center; }
+    th { background-color: #4CAF50; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h1>Latihan JavaScript eksternal - Pertemuan 2 (Data Sekolah)</h1>
+
+  <!-- Tombol Interaktif -->
+  <div class="button-container">
+    <button onclick="tampilIdentitas()">Lihat Identitas Sekolah</button>
+    <button onclick="tampilDialog()">Isi Nama Siswa</button>
+    <button onclick="cekNilai()">Cek Nilai Ujian</button>
+    <button onclick="tampilKelas()">Daftar Kelas</button>
+    <button onclick="tampilEkskul()">Daftar Ekstrakurikuler</button>
+    <button onclick="tampilTabelSiswa()">Daftar Siswa</button>
+    <button onclick="tambahSiswa()">Tambah Siswa</button>
+    <button onclick="hapusSiswa()">Hapus Siswa</button>
+    <button onclick="editSiswa()">Edit Siswa</button>
+    <button onclick="cariSiswa()">Cari Siswa</button>
+  </div>
+
+  <hr>
+  <div id="hasil"></div>
+
+  <!-- Panggil file eksternal JS -->
+  <script src="script.js"></script>
+</body>
+</html>
