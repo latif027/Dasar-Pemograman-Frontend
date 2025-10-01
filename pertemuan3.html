@@ -1,0 +1,156 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Studi Kasus JavaScript</title>
+</head>
+<body>
+  <h1>Studi Kasus JavaScript</h1>
+  <p>Pilih materi:</p>
+  <button onclick="show('aritmatika')">Operator Aritmatika</button>
+  <button onclick="show('penugasan')">Operator Penugasan</button>
+  <button onclick="show('relasi')">Operator Relasi</button>
+  <button onclick="show('logika')">Operator Logika</button>
+  <button onclick="show('percabangan')">Percabangan</button>
+  <button onclick="show('perulangan')">Perulangan</button>
+  <button onclick="show('array')">Array</button>
+  <hr>
+
+  <!-- Operator Aritmatika -->
+  <div id="aritmatika" style="display:none">
+    <h2>Operator Aritmatika</h2>
+    <button onclick="hitungBelanja()">Hitung Belanja</button>
+    <p id="outArit"></p>
+  </div>
+
+  <!-- Operator Penugasan -->
+  <div id="penugasan" style="display:none">
+    <h2>Operator Penugasan</h2>
+    <button onclick="tambahPoin()">Tambah Poin</button>
+    <p id="outPoin">Poin awal: 50</p>
+  </div>
+
+  <!-- Operator Relasi -->
+  <div id="relasi" style="display:none">
+    <h2>Operator Relasi</h2>
+    <input type="number" id="nilai" placeholder="Masukkan nilai">
+    <button onclick="cekLulus()">Cek</button>
+    <p id="outRelasi"></p>
+  </div>
+
+  <!-- Operator Logika -->
+  <div id="logika" style="display:none">
+    <h2>Operator Logika</h2>
+    Nilai: <input type="number" id="nilai2"><br>
+    Kehadiran (%): <input type="number" id="hadir"><br>
+    <button onclick="cekHadiah()">Cek</button>
+    <p id="outLogika"></p>
+  </div>
+
+  <!-- Percabangan -->
+  <div id="percabangan" style="display:none">
+    <h2>Percabangan If Else</h2>
+    <input type="number" id="umur" placeholder="Masukkan umur">
+    <button onclick="cekUmur()">Cek</button>
+    <p id="outUmur"></p>
+  </div>
+
+  <!-- Perulangan -->
+  <div id="perulangan" style="display:none">
+    <h2>Perulangan For dan While</h2>
+    <button onclick="loopFor()">Loop For</button>
+    <button onclick="loopWhile()">Loop While</button>
+    <p id="outLoop"></p>
+  </div>
+
+  <!-- Array -->
+  <div id="array" style="display:none">
+    <h2>Array Buah</h2>
+    <button onclick="tampilBuah()">Tampilkan</button>
+    <button onclick="tambahBuah()">Tambah 'Mangga'</button>
+    <button onclick="hapusBuah()">Hapus Terakhir</button>
+    <p id="outArray"></p>
+  </div>
+
+  <script>
+    // Fungsi untuk menampilkan bagian sesuai pilihan
+    function show(id) {
+      let divs = document.querySelectorAll("div");
+      divs.forEach(d => d.style.display = "none");
+      document.getElementById(id).style.display = "block";
+    }
+
+    // Operator Aritmatika
+    function hitungBelanja() {
+      let susu = 15000, roti = 7000, telur = 12000;
+      let total = susu + roti + telur;
+      let diskon = total * 0.1;
+      let totalBayar = total - diskon;
+      document.getElementById("outArit").innerHTML =
+        `Total: Rp ${total}<br>Diskon: Rp ${diskon}<br>Bayar: Rp ${totalBayar}`;
+    }
+
+    // Operator Penugasan
+    let poin = 50;
+    function tambahPoin() {
+      poin += 10;
+      document.getElementById("outPoin").innerText = "Total Poin: " + poin;
+    }
+
+    // Operator Relasi
+    function cekLulus() {
+      let nilai = document.getElementById("nilai").value;
+      let hasil = (nilai >= 75) ? "Lulus" : "Tidak Lulus";
+      document.getElementById("outRelasi").innerText = "Status: " + hasil;
+    }
+
+    // Operator Logika
+    function cekHadiah() {
+      let nilai = document.getElementById("nilai2").value;
+      let hadir = document.getElementById("hadir").value;
+      if (nilai >= 75 && hadir >= 80) {
+        document.getElementById("outLogika").innerText = "Dapat hadiah!";
+      } else {
+        document.getElementById("outLogika").innerText = "Belum dapat hadiah.";
+      }
+    }
+
+    // Percabangan
+    function cekUmur() {
+      let umur = document.getElementById("umur").value;
+      let kategori;
+      if (umur < 12) kategori = "Anak-anak";
+      else if (umur < 18) kategori = "Remaja";
+      else kategori = "Dewasa";
+      document.getElementById("outUmur").innerText = "Kategori: " + kategori;
+    }
+
+    // Perulangan
+    function loopFor() {
+      let teks = "";
+      for (let i = 1; i <= 5; i++) teks += i + " ";
+      document.getElementById("outLoop").innerText = teks;
+    }
+    function loopWhile() {
+      let i = 1, teks = "";
+      while (i <= 5) { teks += i + " "; i++; }
+      document.getElementById("outLoop").innerText = teks;
+    }
+
+    // Array
+    let buah = ["Apel", "Jeruk", "Manggis"];
+    function tampilBuah() {
+      document.getElementById("outArray").innerText = buah.join(", ");
+    }
+    function tambahBuah() {
+      buah.push("Mangga");
+      tampilBuah();
+    }
+    function hapusBuah() {
+      buah.pop();
+      tampilBuah();
+    }
+  </script>
+</body>
+</html>
